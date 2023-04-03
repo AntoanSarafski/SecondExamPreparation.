@@ -69,6 +69,39 @@ namespace BookingApp.Core
         }
 
 
+        public string SetRoomPrices(string hotelName, string roomTypeName, double price)
+        {
+            IHotel hotel = hotels.Select(hotelName);
+
+            if (hotel == null)
+            {
+                return string.Format(OutputMessages.HotelNameInvalid, hotelName);
+            }
+
+            if (roomTypeName != nameof(DoubleBed) 
+                && roomTypeName != nameof(Studio)
+                && roomTypeName != nameof(Apartment))
+            {
+                throw new ArgumentException(ExceptionMessages.RoomTypeIncorrect);
+            }
+
+            IRoom room = hotel.Rooms.Select(roomTypeName);
+
+            if (room == null)
+            {
+                return OutputMessages.RoomTypeNotCreated;
+            }
+            if (room.PricePerNight > 0)
+            {
+                throw new InvalidOperationException(ExceptionMessages.PriceAlreadySet);
+            }
+            room.SetPrice(price);
+           
+            return string.Format(OutputMessages.PriceSetSuccessfully, roomTypeName, hotelName);
+        }
+
+
+
         public string BookAvailableRoom(int adults, int children, int duration, int category)
         {
             throw new NotImplementedException();
@@ -79,10 +112,7 @@ namespace BookingApp.Core
             throw new NotImplementedException();
         }
 
-        public string SetRoomPrices(string hotelName, string roomTypeName, double price)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         
     }
