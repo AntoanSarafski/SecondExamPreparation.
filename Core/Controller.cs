@@ -156,6 +156,7 @@ namespace BookingApp.Core
             sb.AppendLine($"--{hotel.Category} star hotel");
             sb.AppendLine($"--Turnover: {hotel.Turnover:f2} $");
             sb.AppendLine($"--Bookings:");
+            sb.AppendLine();
             if (hotel.Bookings.All().Count() == 0)
             {
                 sb.AppendLine("none");
@@ -164,8 +165,8 @@ namespace BookingApp.Core
             {
                 foreach (var booking in hotel.Bookings.All())
                 {
-                    sb.AppendLine();
                     sb.AppendLine(booking.BookingSummary());
+                    sb.AppendLine();
                 }
             }
 
