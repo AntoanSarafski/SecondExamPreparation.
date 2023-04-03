@@ -11,19 +11,21 @@ namespace BookingApp.Repositories
 {
     public class RoomRepository : IRepository<IRoom>
     {
-        public void AddNew(IRoom model)
-        {
-            throw new NotImplementedException();
-        }
+        private List<IRoom> rooms;
 
-        public IReadOnlyCollection<IRoom> All()
+        public RoomRepository()
         {
-            throw new NotImplementedException();
+            rooms = new List<IRoom>();
         }
+        public void AddNew(IRoom model)
+            => rooms.Add(model);
 
         public IRoom Select(string criteria)
-        {
-            throw new NotImplementedException();
-        }
+            => rooms.FirstOrDefault(r => r.GetType().Name == criteria);
+
+        public IReadOnlyCollection<IRoom> All()
+            => rooms.AsReadOnly();
+
+        
     }
 }
