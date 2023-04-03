@@ -3,6 +3,7 @@ using BookingApp.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,19 +11,21 @@ namespace BookingApp.Repositories
 {
     internal class BookingRepository : IRepository<IBooking>
     {
-        public void AddNew(IBooking model)
-        {
-            throw new NotImplementedException();
-        }
+        private List<IBooking> bookings;
 
-        public IReadOnlyCollection<IBooking> All()
+        public BookingRepository()
         {
-            throw new NotImplementedException();
+            bookings = new List<IBooking>();    
         }
+        public void AddNew(IBooking model)
+            => bookings.Add(model);
 
         public IBooking Select(string criteria)
-        {
-            throw new NotImplementedException();
-        }
+            => bookings.FirstOrDefault(b => b.BookingNumber.ToString() == criteria);
+
+        public IReadOnlyCollection<IBooking> All()
+            => bookings.AsReadOnly();
+
+        
     }
 }

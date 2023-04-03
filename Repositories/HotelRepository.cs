@@ -23,7 +23,7 @@ namespace BookingApp.Repositories
             => hotels.FirstOrDefault(h => h.FullName == criteria);
 
         public IReadOnlyCollection<IHotel> All()
-            => hotels;
+            => hotels.AsReadOnly();
 
         
     }
