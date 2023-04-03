@@ -111,19 +111,19 @@ namespace BookingApp.Core
                 return string.Format(OutputMessages.CategoryInvalid, category);
             }
 
-            var orderedHotels = hotels
+            IOrderedEnumerable<IHotel> orderedHotels = hotels
                 .All()
                 .Where(h => h.Category == category)
                 .OrderBy(h => h.FullName);
 
-            foreach ( var hotel in orderedHotels ) 
+            foreach (var hotel in orderedHotels) 
             {
                 IRoom room = hotel.Rooms
                     .All()
                     .Where(r => r.PricePerNight > 0)
                     .OrderBy(r => r.BedCapacity)
                     .FirstOrDefault(r => r.BedCapacity >= adults + children);
-
+                // TODO : WE MUST CHECK THIS! Return null :@ 
                 if (room != null)
                 {
                     int bookingNumber = hotel.Bookings.All().Count + 1;
@@ -132,7 +132,7 @@ namespace BookingApp.Core
 
                     hotel.Bookings.AddNew(booking);
 
-                    string.Format(OutputMessages.BookingSuccessful, bookingNumber, hotel.FullName);
+                    return string.Format(OutputMessages.BookingSuccessful, bookingNumber, hotel.FullName);
                     
                 }
             }
