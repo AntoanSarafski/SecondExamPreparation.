@@ -12,7 +12,7 @@ namespace BookingApp.Models.Rooms
     {
         private double pricePerNight;
 
-        public Room(int bedCapacity)
+        protected Room(int bedCapacity) // PROTECTED, cuz Room is abstract class ! 
         {
             BedCapacity = bedCapacity;
             PricePerNight = 0; //Deffault value ! 

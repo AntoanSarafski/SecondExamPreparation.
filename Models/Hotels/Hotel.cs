@@ -46,7 +46,7 @@ namespace BookingApp.Models.Hotels
             get => category;
             private set
             {
-                if (value > 1 || value > 5)
+                if (value < 1 || value > 5)
                 {
                     throw new ArgumentException(ExceptionMessages.InvalidCategory);
                 }

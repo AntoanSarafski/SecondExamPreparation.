@@ -11,7 +11,7 @@ namespace BookingApp.Repositories
 {
     public class RoomRepository : IRepository<IRoom>
     {
-        private List<IRoom> rooms;
+        private readonly List<IRoom> rooms;
 
         public RoomRepository()
         {
